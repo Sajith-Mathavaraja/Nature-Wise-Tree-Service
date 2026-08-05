@@ -122,7 +122,7 @@ export default function Home() {
         {/* Background Image with overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src={`${import.meta.env.BASE_URL}images/arborist_hero_new.jpg`}
+            src={`${import.meta.env.BASE_URL}images/arborist_hero_new.webp`}
             alt="Nature Wise Arborist Trimming Cedar Tree"
             className="w-full h-full object-cover object-center mix-blend-overlay opacity-40 scale-105 animate-fade-in blur-[3px] md:blur-none"
             loading="eager"
