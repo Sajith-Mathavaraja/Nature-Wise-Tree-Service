@@ -457,6 +457,7 @@ export default function Home() {
                     data-layout-iframe-id="inline-URNrun6RBbHQ58gvybC5"
                     data-form-id="URNrun6RBbHQ58gvybC5"
                     title="Nature Wise Tree Care - Website Lead Form"
+                    loading="lazy"
                   ></iframe>
                 </div>
               </div>
