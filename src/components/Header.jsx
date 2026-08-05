@@ -122,10 +122,6 @@ export default function Header() {
     e.preventDefault();
     setIsMobileMenuOpen(false);
 
-    if (path === "contact") {
-      window.dispatchEvent(new CustomEvent("load-lead-form"));
-    }
-
     // If on a legal subpage, go back to home first
     if (location.pathname !== "/") {
       navigate("/");

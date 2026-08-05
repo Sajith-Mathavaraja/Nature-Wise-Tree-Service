@@ -43,16 +43,7 @@ export default function Home() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const [showForm, setShowForm] = useState(false);
-
   useEffect(() => {
-    const handleLoadForm = () => setShowForm(true);
-    window.addEventListener("load-lead-form", handleLoadForm);
-    return () => window.removeEventListener("load-lead-form", handleLoadForm);
-  }, []);
-
-  useEffect(() => {
-    if (!showForm) return;
     const script = document.createElement("script");
     script.src = "https://link.kdlead.com/js/form_embed.js";
     script.async = true;
@@ -64,7 +55,7 @@ export default function Home() {
         // ignore
       }
     };
-  }, [showForm]);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -452,45 +443,27 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-7 w-full">
-              <div className="bg-card border border-border-custom rounded-3xl shadow-lg p-2 overflow-hidden min-h-[741px] flex flex-col items-center justify-center text-center">
-                {!showForm ? (
-                  <div className="max-w-md mx-auto py-12 px-6 flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-full bg-[#E3EEE2] flex items-center justify-center text-primary mb-6">
-                      <ShieldCheck className="w-8 h-8" />
-                    </div>
-                    <h3 className="font-extrabold text-heading text-xl mb-3">Secure Estimate Request</h3>
-                    <p className="text-xs text-body mb-8 leading-relaxed max-w-sm">
-                      We value your privacy. Click below to load our secure arborist lead form powered by KDLead and request your free consultation.
-                    </p>
-                    <button
-                      onClick={() => setShowForm(true)}
-                      className="bg-primary hover:bg-primary-dark text-white font-bold text-sm px-8 py-4 rounded-full shadow-md hover-lift transition-all focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
-                    >
-                      Load Secure Form
-                    </button>
-                  </div>
-                ) : (
-                  <div className="w-full min-h-[741px]">
-                    <iframe
-                      src="https://link.kdlead.com/widget/form/URNrun6RBbHQ58gvybC5"
-                      style={{ width: "100%", height: "741px", border: "none", borderRadius: "8px" }}
-                      id="inline-URNrun6RBbHQ58gvybC5" 
-                      data-layout="{'id':'INLINE'}"
-                      data-trigger-type="alwaysShow"
-                      data-trigger-value=""
-                      data-activation-type="alwaysActivated"
-                      data-activation-value=""
-                      data-deactivation-type="neverDeactivate"
-                      data-deactivation-value=""
-                      data-form-name="Nature Wise Tree Care - Website Lead Form"
-                      data-height="741"
-                      data-layout-iframe-id="inline-URNrun6RBbHQ58gvybC5"
-                      data-form-id="URNrun6RBbHQ58gvybC5"
-                      title="Nature Wise Tree Care - Website Lead Form"
-                      loading="lazy"
-                    ></iframe>
-                  </div>
-                )}
+              <div className="bg-card border border-border-custom rounded-3xl shadow-lg p-2 overflow-hidden">
+                <div className="w-full min-h-[741px]">
+                  <iframe
+                    src="https://link.kdlead.com/widget/form/URNrun6RBbHQ58gvybC5"
+                    style={{ width: "100%", height: "741px", border: "none", borderRadius: "8px" }}
+                    id="inline-URNrun6RBbHQ58gvybC5" 
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Nature Wise Tree Care - Website Lead Form"
+                    data-height="741"
+                    data-layout-iframe-id="inline-URNrun6RBbHQ58gvybC5"
+                    data-form-id="URNrun6RBbHQ58gvybC5"
+                    title="Nature Wise Tree Care - Website Lead Form"
+                    loading="lazy"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
