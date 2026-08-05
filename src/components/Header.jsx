@@ -80,43 +80,38 @@ export default function Header() {
 
   const [activeSection, setActiveSection] = useState(location.pathname === "/" ? "home" : "");
 
-  // Track active section on scroll dynamically
+  // Track active section on scroll dynamically using a high-performance IntersectionObserver
   useEffect(() => {
-    const handleScroll = () => {
-      if (location.pathname !== "/") {
-        setActiveSection("");
-        return;
+    if (location.pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    const sections = ["home", "about", "services", "why-choose-us", "reviews", "contact"];
+    
+    const observerCallback = (entries) => {
+      // Find the entry that has the highest intersection ratio
+      const visibleEntry = entries.find(entry => entry.isIntersecting);
+      if (visibleEntry) {
+        setActiveSection(visibleEntry.target.id);
       }
-      const sections = ["home", "about", "services", "why-choose-us", "reviews", "contact"];
-      
-      let currentSection = "home";
-      let minDistance = Infinity;
-
-      sections.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // Distance from the target line 200px down the viewport
-          const distance = Math.abs(rect.top - 200);
-          
-          // Check if section is currently spanning across the active center viewport zone
-          if (rect.top <= 350 && rect.bottom >= 150) {
-            if (distance < minDistance) {
-              minDistance = distance;
-              currentSection = id;
-            }
-          }
-        }
-      });
-
-      setActiveSection(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initial check
-    handleScroll();
+    // Configure the observer to trigger as sections cross the middle viewport zone
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: "-25% 0px -45% 0px",
+      threshold: [0, 0.1, 0.2]
+    });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        observer.observe(el);
+      }
+    });
+
+    return () => observer.disconnect();
   }, [location.pathname]);
 
   const currentIdx = navLinks.findIndex(link => link.path === activeSection);
