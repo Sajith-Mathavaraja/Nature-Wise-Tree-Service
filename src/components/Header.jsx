@@ -22,7 +22,7 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Scroll detection to toggle sticky styling (throttled with requestAnimationFrame for performance)
+  // Scroll detection to toggle sticky styling (deferred past first paint to prevent initial forced reflow)
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -34,8 +34,13 @@ export default function Header() {
         ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    let rafId = requestAnimationFrame(() => {
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    });
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // Prevent body scroll when mobile menu is open
