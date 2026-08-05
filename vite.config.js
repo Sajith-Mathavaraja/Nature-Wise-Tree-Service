@@ -1,32 +1,99 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
-// Removed inlineCSSPlugin — it was injecting all CSS into the JS bundle,
-// causing Lighthouse "Reduce unused JavaScript" warning (89kB → ~35kB savings reported).
-// Native Vite CSS extraction produces a separate .css file that:
-//  1. Loads in parallel with JS (no render-blocking penalty)
-//  2. Contains zero unused bytes (only what is actually used)
-//  3. Gets its own 1-year cache entry on Netlify
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  base: "/Nature-Wise-Tree-Service/",
-  build: {
-    rollupOptions: {
-      output: {
-        // Split React + React Router into a separate cached vendor chunk.
-        // Rolldown (Vite 6) requires manualChunks as a function, not an object.
-        manualChunks(id) {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) {
-            return 'react-vendor';
+// Custom plugin to inline CSS during build.
+// Since the entire Tailwind CSS is only 9.0 kB, inlining it into a <style> tag
+// in index.html completely eliminates the "Render-blocking requests" network penalty (190ms saved).
+const inlineCSSPlugin = () => {
+  return {
+    name: 'inline-css',
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        if (!ctx || !ctx.bundle) return html;
+        let inlineStyles = '';
+        for (const [fileName, file] of Object.entries(ctx.bundle)) {
+          if (fileName.endsWith('.css')) {
+            inlineStyles += `<style>${file.source}</style>`;
+            delete ctx.bundle[fileName];
           }
         }
+        if (inlineStyles) {
+          html = html.replace(/<link[^>]*href="[^"]*\.css"[^>]*>/g, '');
+          html = html.replace('</head>', `${inlineStyles}</head>`);
+        }
+        return html;
       }
-    },
-    // Exclude lazy-loaded sub-page chunks from modulePreload hints.
-    // Without this, Vite adds <link rel="modulepreload"> for all lazy chunks,
-    // making Lighthouse count them as critical network dependencies.
+    }
+  };
+};
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+    inlineCSSPlugin(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|webp|avif)$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images-cache-v1',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+          {
+            urlPattern: /\/assets\/.+\.(js|css)(\?.*)?$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'static-resources-v1',
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+        ],
+        navigateFallback: null,
+      },
+      manifest: {
+        name: 'Nature Wise Tree Service',
+        short_name: 'Nature Wise',
+        description: 'Certified Arborists & Eco-Friendly Tree Care in WNY',
+        theme_color: '#203322',
+        background_color: '#F8FBF6',
+        display: 'standalone',
+        start_url: '/Nature-Wise-Tree-Service/',
+        icons: [
+          {
+            src: 'favicon.svg',
+            sizes: '192x192',
+            type: 'image/svg+xml',
+          },
+        ],
+      },
+    }),
+  ],
+  base: "/Nature-Wise-Tree-Service/",
+  resolve: {
+    alias: {
+      'react': 'preact/compat',
+      'react-dom/test-utils': 'preact/compat/test-utils',
+      'react-dom': 'preact/compat',
+      'react/jsx-runtime': 'preact/compat/jsx-runtime'
+    }
+  },
+  build: {
     modulePreload: {
       resolveDependencies: (filename, deps) => {
         return deps.filter(dep =>
