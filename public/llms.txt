@@ -1,0 +1,17 @@
+# Nature Wise Tree Service
+
+> Certified arborists & eco-friendly tree care services in Buffalo, Clarence, and WNY. Specialized in precision tree pruning, safe removals, stump grinding, and emergency storm response.
+
+## Services
+
+- [Tree Assessment & Consultation](https://superb-gecko-f9661e.netlify.app/#services)
+- [Precision Tree Pruning & Trimming](https://superb-gecko-f9661e.netlify.app/#services)
+- [Safe Tree Removal & Felling](https://superb-gecko-f9661e.netlify.app/#services)
+- [Stump & Root Management](https://superb-gecko-f9661e.netlify.app/#services)
+- [Emergency Storm Response](https://superb-gecko-f9661e.netlify.app/#contact)
+
+## Pages & Legal
+
+- [Privacy Policy](https://superb-gecko-f9661e.netlify.app/privacy-policy)
+- [Terms & Conditions](https://superb-gecko-f9661e.netlify.app/terms)
+- [Free Quote Contact](https://superb-gecko-f9661e.netlify.app/#contact)
