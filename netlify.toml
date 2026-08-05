@@ -2,10 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
-# ── Cache Headers for Netlify ────────────────────────────────────────────────
-# Vite hashes every asset filename on build, so immutable 1-year cache is safe.
-# This fixes the Lighthouse "Use efficient cache lifetimes" warning on Netlify.
+# ── SPA Routing (Fixes 404 on page refresh for /privacy-policy, /terms, etc.) ─
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
+# ── Cache Headers for Netlify ────────────────────────────────────────────────
 [[headers]]
   for = "/assets/*"
   [headers.values]
@@ -25,8 +28,3 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
