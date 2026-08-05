@@ -1,0 +1,27 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# ── Cache Headers ────────────────────────────────────────────────────────────
+# Vite hashes every asset filename on build, so immutable 1-year cache is safe.
+# This fixes the Lighthouse "Use efficient cache lifetimes" warning (was only 10m TTL).
+
+[[headers]]
+  for = "/Nature-Wise-Tree-Service/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Nature-Wise-Tree-Service/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/Nature-Wise-Tree-Service/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/Nature-Wise-Tree-Service/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

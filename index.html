@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary SEO Meta Tags -->
-    <title>Nature Wise Tree Service | Certified Arborists & Eco-Friendly Tree Care</title>
+    <title>Nature Wise Tree Service | Certified Arborists &amp; Eco-Friendly Tree Care</title>
     <meta name="description" content="Nature Wise Tree Service offers premium, eco-friendly arborist solutions. Certified experts in tree removal, precision trimming, stump grinding, and 24/7 emergency response. Get your free estimate today!" />
     
-    <!-- Preconnect to domains -->
+    <!-- Preconnect to font servers BEFORE font request fires -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Preload LCP Hero Image -->
+    <!-- Preload LCP Hero Image at highest priority — fires before JS parses -->
     <link rel="preload" href="./images/arborist_hero_new.webp" as="image" fetchpriority="high" />
 
-    <!-- Typography (Plus Jakarta Sans - Single Variable Font) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <!-- Typography — async load (no render-blocking) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
     </noscript>

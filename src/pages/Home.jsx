@@ -172,6 +172,9 @@ export default function Home() {
             className="w-full h-full object-cover object-center mix-blend-overlay opacity-40 scale-105 animate-fade-in blur-[3px] md:blur-none"
             loading="eager"
             fetchPriority="high"
+            width="1200"
+            height="800"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#203322] via-[#203322]/70 to-[#203322]/95 md:via-[#203322]/40 md:to-[#203322]/90"></div>
         </div>
@@ -484,7 +487,7 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-7 w-full">
-              <div className="bg-card border border-border-custom rounded-3xl shadow-lg p-2 overflow-hidden">
+              <div className="w-full overflow-hidden">
                 <div className="w-full min-h-[741px]">
                   {showForm ? (
                     <iframe
