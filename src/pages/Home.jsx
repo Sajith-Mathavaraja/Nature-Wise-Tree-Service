@@ -220,14 +220,14 @@ export default function Home() {
                 <div className="flex gap-3">
                   <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-extrabold text-heading text-sm uppercase tracking-wide">Eco-Friendly Cleanup</h4>
+                    <h3 className="font-extrabold text-heading text-sm uppercase tracking-wide">Eco-Friendly Cleanup</h3>
                     <p className="text-xs text-body mt-1">100% of organic waste is recycled into reusable local mulch or woodcraft boards.</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-extrabold text-heading text-sm uppercase tracking-wide">Certified Integrity</h4>
+                    <h3 className="font-extrabold text-heading text-sm uppercase tracking-wide">Certified Integrity</h3>
                     <p className="text-xs text-body mt-1">We advise treatments instead of removals whenever a tree can be safely preserved.</p>
                   </div>
                 </div>
@@ -353,7 +353,7 @@ export default function Home() {
                   <p className="text-xs italic leading-relaxed text-body mb-6">"{rev.text}"</p>
                 </div>
                 <div className="border-t border-border-custom pt-4">
-                  <h4 className="font-extrabold text-heading text-sm">{rev.author}</h4>
+                  <h3 className="font-extrabold text-heading text-sm">{rev.author}</h3>
                   <div className="flex justify-between items-center text-[10px] text-body mt-1">
                     <span>{rev.location}</span>
                     <span>{rev.service}</span>
@@ -422,7 +422,7 @@ export default function Home() {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-heading">Direct Phone Line</h4>
+                    <h3 className="font-extrabold text-heading">Direct Phone Line</h3>
                     <p className="text-body">{siteData.phone}</p>
                   </div>
                 </div>
@@ -431,7 +431,7 @@ export default function Home() {
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-heading">Work Hours</h4>
+                    <h3 className="font-extrabold text-heading">Work Hours</h3>
                     <p className="text-body">Mon - Fri: 7:00 AM - 6:00 PM</p>
                   </div>
                 </div>
