@@ -226,6 +226,7 @@ export default function Header() {
                       key={link.path}
                       href={`#${link.path}`}
                       onClick={(e) => handleLinkClick(e, link.path)}
+                      aria-label={link.label}
                       className={`absolute w-11 h-11 rounded-full flex flex-col items-center justify-center text-center font-extrabold shadow-sm transition-all duration-500 border focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer ${
                         isActive
                           ? "bg-primary border-secondary text-secondary scale-105 shadow-md ring-4 ring-primary/25"
