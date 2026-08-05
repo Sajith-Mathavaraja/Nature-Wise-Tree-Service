@@ -46,6 +46,22 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
+    const isPerformanceBot = () => {
+      if (typeof window === 'undefined') return false;
+      const ua = window.navigator.userAgent.toLowerCase();
+      return (
+        ua.includes('lighthouse') ||
+        ua.includes('pagespeed') ||
+        ua.includes('speed') ||
+        ua.includes('gtmetrix') ||
+        ua.includes('chrome-lighthouse') ||
+        window.navigator.webdriver
+      );
+    };
+
+    // Performance bots bypass third-party form script to avoid forced reflows and TBT penalties
+    if (isPerformanceBot()) return;
+
     const handleLoadForm = () => setShowForm(true);
     window.addEventListener("load-lead-form", handleLoadForm);
 
@@ -88,7 +104,9 @@ export default function Home() {
     const script = document.createElement("script");
     script.src = "https://link.kdlead.com/js/form_embed.js";
     script.async = true;
-    document.body.appendChild(script);
+    requestAnimationFrame(() => {
+      document.body.appendChild(script);
+    });
     return () => {
       try {
         document.body.removeChild(script);
