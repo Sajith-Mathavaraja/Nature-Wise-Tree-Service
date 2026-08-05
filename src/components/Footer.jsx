@@ -46,7 +46,7 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-4">
             <a href="#home" onClick={(e) => handleLinkClick(e, "home")} className="flex items-center gap-2 group focus:outline-none">
               <img
-                src="/images/logo.webp"
+                src={`${import.meta.env.BASE_URL}images/logo.webp`}
                 alt="Nature Wise Tree Service Logo"
                 className="w-10 h-10 object-contain rounded-full border border-white/20"
               />

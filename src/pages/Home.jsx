@@ -122,7 +122,7 @@ export default function Home() {
         {/* Background Image with overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/arborist_hero_new.jpg"
+            src={`${import.meta.env.BASE_URL}images/arborist_hero_new.jpg`}
             alt="Nature Wise Arborist Trimming Cedar Tree"
             className="w-full h-full object-cover object-center mix-blend-overlay opacity-40 scale-105 animate-fade-in blur-[3px] md:blur-none"
             loading="eager"
@@ -197,7 +197,7 @@ export default function Home() {
             <div className="lg:col-span-6 relative">
               <div className="absolute inset-0 bg-primary rounded-tl-[80px] rounded-br-[80px] rotate-2 scale-98 opacity-10"></div>
               <img
-                src="/images/philosophy_planting.webp"
+                src={`${import.meta.env.BASE_URL}images/philosophy_planting.webp`}
                 alt="Nature Wise Arborists planting a young tree"
                 className="w-full h-[450px] object-cover rounded-tl-[80px] rounded-br-[80px] shadow-lg border-2 border-border-custom relative z-10"
                 loading="lazy"
@@ -270,7 +270,7 @@ export default function Home() {
                   <div>
                     <div className="h-48 relative overflow-hidden bg-emerald-50">
                       <img
-                        src={`/images/${svc.imageName}.webp`}
+                        src={`${import.meta.env.BASE_URL}images/${svc.imageName}.webp`}
                         alt={svc.title}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         loading="lazy"
@@ -371,7 +371,7 @@ export default function Home() {
       <section className="py-16 bg-[#203322] text-white relative overflow-hidden border-t-2 border-secondary/30">
         <div className="absolute inset-0 opacity-20">
           <img
-            src="/images/emergency_tree.webp"
+            src={`${import.meta.env.BASE_URL}images/emergency_tree.webp`}
             alt="Storm damaged tree"
             className="w-full h-full object-cover object-center"
             loading="lazy"

@@ -111,7 +111,7 @@ export default function About({ isSection }) {
             <div className="lg:col-span-5 relative">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl rotate-1 scale-98"></div>
               <img
-                src="/images/philosophy_planting.webp"
+                src={`${import.meta.env.BASE_URL}images/philosophy_planting.webp`}
                 alt="Nature Wise Arborist Team"
                 className="w-full h-[400px] object-cover rounded-3xl border border-border-custom relative z-10"
                 loading="lazy"

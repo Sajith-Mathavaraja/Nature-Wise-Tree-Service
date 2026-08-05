@@ -176,7 +176,7 @@ export default function Header() {
           >
             {/* Custom Logo Image */}
             <img
-              src="/images/logo.webp"
+              src={`${import.meta.env.BASE_URL}images/logo.webp`}
               alt="Nature Wise Tree Service Logo"
               className="w-10 h-10 object-contain rounded-full shadow-sm border border-border-custom transition-transform duration-300 group-hover:scale-105"
             />
@@ -329,7 +329,7 @@ export default function Header() {
               aria-label="Nature Wise Tree Service Home"
             >
               <img
-                src="/images/logo.webp"
+                src={`${import.meta.env.BASE_URL}images/logo.webp`}
                 alt="Nature Wise Tree Service Logo"
                 className="w-10 h-10 object-contain rounded-full border border-white/20"
               />
