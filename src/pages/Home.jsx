@@ -354,7 +354,7 @@ export default function Home() {
                 </div>
                 <div className="border-t border-border-custom pt-4">
                   <h4 className="font-extrabold text-heading text-sm">{rev.author}</h4>
-                  <div className="flex justify-between items-center text-[10px] text-body/60 mt-1">
+                  <div className="flex justify-between items-center text-[10px] text-body mt-1">
                     <span>{rev.location}</span>
                     <span>{rev.service}</span>
                   </div>
@@ -390,9 +390,9 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
               href={`tel:${siteData.phoneFormatted}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-white font-black text-base px-8 py-4.5 rounded-full shadow-lg hover-lift transition-all touch-target focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-heading font-black text-base px-8 py-4.5 rounded-full shadow-lg hover-lift transition-all touch-target focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <Phone className="w-5 h-5 text-white animate-pulse" />
+              <Phone className="w-5 h-5 text-heading animate-pulse" />
               Call Now: {siteData.phone}
             </a>
             <span className="text-xs font-bold text-white/60">Available 24 hours / 7 days a week</span>
@@ -423,7 +423,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-extrabold text-heading">Direct Phone Line</h4>
-                    <p className="text-body/80">{siteData.phone}</p>
+                    <p className="text-body">{siteData.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -432,7 +432,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-extrabold text-heading">Work Hours</h4>
-                    <p className="text-body/80">Mon - Fri: 7:00 AM - 6:00 PM</p>
+                    <p className="text-body">Mon - Fri: 7:00 AM - 6:00 PM</p>
                   </div>
                 </div>
               </div>

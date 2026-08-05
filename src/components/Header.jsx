@@ -184,7 +184,7 @@ export default function Header() {
               <span className={`text-lg font-extrabold tracking-tight leading-none ${isMobileMenuOpen ? "text-white" : "text-heading"}`}>
                 NATURE WISE
               </span>
-              <span className="text-[10px] font-bold tracking-widest text-secondary uppercase leading-none mt-0.5">
+              <span className={`text-[10px] font-bold tracking-widest uppercase leading-none mt-0.5 ${isMobileMenuOpen ? "text-secondary" : "text-primary"}`}>
                 TREE SERVICE
               </span>
             </div>
