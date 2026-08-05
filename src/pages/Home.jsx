@@ -43,7 +43,48 @@ export default function Home() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const [showForm, setShowForm] = useState(false);
+
   useEffect(() => {
+    const handleLoadForm = () => setShowForm(true);
+    window.addEventListener("load-lead-form", handleLoadForm);
+
+    if (!("IntersectionObserver" in window)) {
+      setShowForm(true);
+      return () => window.removeEventListener("load-lead-form", handleLoadForm);
+    }
+
+    const contactSection = document.getElementById("contact");
+    if (!contactSection) {
+      setShowForm(true);
+      return () => window.removeEventListener("load-lead-form", handleLoadForm);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShowForm(true);
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "600px 0px 600px 0px",
+        threshold: 0
+      }
+    );
+
+    observer.observe(contactSection);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("load-lead-form", handleLoadForm);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!showForm) return;
     const script = document.createElement("script");
     script.src = "https://link.kdlead.com/js/form_embed.js";
     script.async = true;
@@ -55,7 +96,7 @@ export default function Home() {
         // ignore
       }
     };
-  }, []);
+  }, [showForm]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -445,24 +486,30 @@ export default function Home() {
             <div className="lg:col-span-7 w-full">
               <div className="bg-card border border-border-custom rounded-3xl shadow-lg p-2 overflow-hidden">
                 <div className="w-full min-h-[741px]">
-                  <iframe
-                    src="https://link.kdlead.com/widget/form/URNrun6RBbHQ58gvybC5"
-                    style={{ width: "100%", height: "741px", border: "none", borderRadius: "8px" }}
-                    id="inline-URNrun6RBbHQ58gvybC5" 
-                    data-layout="{'id':'INLINE'}"
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Nature Wise Tree Care - Website Lead Form"
-                    data-height="741"
-                    data-layout-iframe-id="inline-URNrun6RBbHQ58gvybC5"
-                    data-form-id="URNrun6RBbHQ58gvybC5"
-                    title="Nature Wise Tree Care - Website Lead Form"
-                    loading="lazy"
-                  ></iframe>
+                  {showForm ? (
+                    <iframe
+                      src="https://link.kdlead.com/widget/form/URNrun6RBbHQ58gvybC5"
+                      style={{ width: "100%", height: "741px", border: "none", borderRadius: "8px" }}
+                      id="inline-URNrun6RBbHQ58gvybC5" 
+                      data-layout="{'id':'INLINE'}"
+                      data-trigger-type="alwaysShow"
+                      data-trigger-value=""
+                      data-activation-type="alwaysActivated"
+                      data-activation-value=""
+                      data-deactivation-type="neverDeactivate"
+                      data-deactivation-value=""
+                      data-form-name="Nature Wise Tree Care - Website Lead Form"
+                      data-height="741"
+                      data-layout-iframe-id="inline-URNrun6RBbHQ58gvybC5"
+                      data-form-id="URNrun6RBbHQ58gvybC5"
+                      title="Nature Wise Tree Care - Website Lead Form"
+                      loading="lazy"
+                    ></iframe>
+                  ) : (
+                    <div className="w-full h-[741px] bg-card rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
