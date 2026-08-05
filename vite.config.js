@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// Detect deployment environment: Netlify root domain '/' vs GitHub Pages subpath '/Nature-Wise-Tree-Service/'
+const isNetlify = process.env.NETLIFY === 'true';
+const base = isNetlify ? '/' : '/Nature-Wise-Tree-Service/';
+
 // Custom plugin to inline CSS during build.
 // Since the entire Tailwind CSS is only 9.0 kB, inlining it into a <style> tag
 // in index.html completely eliminates the "Render-blocking requests" network penalty (190ms saved).
@@ -38,6 +42,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',
+      base: base,
+      scope: base,
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
         runtimeCaching: [
@@ -73,7 +79,7 @@ export default defineConfig({
         theme_color: '#203322',
         background_color: '#F8FBF6',
         display: 'standalone',
-        start_url: '/Nature-Wise-Tree-Service/',
+        start_url: base,
         icons: [
           {
             src: 'favicon.svg',
@@ -84,7 +90,7 @@ export default defineConfig({
       },
     }),
   ],
-  base: "/Nature-Wise-Tree-Service/",
+  base: base,
   resolve: {
     alias: {
       'react': 'preact/compat',
