@@ -317,74 +317,83 @@ export default function Header() {
       </div>
 
       {/* Full-Screen Mobile Navigation Overlay */}
+      {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div
-          id="mobile-nav-menu"
-          className="fixed inset-0 flex flex-col justify-between p-6 animate-fade-in lg:hidden"
-          style={{ backgroundColor: "#203322", zIndex: 9999 }}
-        >
-          {/* Top Panel */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-4">
-            <Link
-              to="/"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 focus:outline-none"
-              aria-label="Nature Wise Tree Service Home"
-            >
-              <img
-                src={`${import.meta.env.BASE_URL}images/logo.webp`}
-                alt="Nature Wise Tree Service Logo"
-                className="w-10 h-10 object-contain rounded-full border border-white/20"
-              />
-              <div className="flex flex-col text-left">
-                <span className="text-lg font-extrabold text-white leading-none">NATURE WISE</span>
-                <span className="text-[10px] font-bold text-secondary uppercase leading-none mt-0.5">TREE SERVICE</span>
-              </div>
-            </Link>
-            {/* The X close icon is managed by the toggle button above, which remains visible via z-50 */}
-          </div>
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-[9990] transition-opacity duration-300 lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
 
-          {/* Nav Items (Center Grid) */}
-          <nav className="flex flex-col gap-4 text-center py-6">
-            {navLinks.map((link, idx) => {
-              const LinkIcon = link.icon;
-              const isActive = link.path === activeSection;
-              return (
-                <a
-                  key={link.path}
-                  href={`#${link.path}`}
-                  onClick={(e) => handleLinkClick(e, link.path)}
-                  style={{ animationDelay: `${idx * 50}ms` }}
-                  className={`text-2xl font-bold py-2 flex items-center justify-center gap-3 transition-all duration-300 animate-fade-up touch-target focus:outline-none ${
-                    isActive ? "text-secondary scale-105 font-black" : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  <LinkIcon className="w-6 h-6" />
-                  <span>{link.label}</span>
-                </a>
-              );
-            })}
-          </nav>
+          {/* Drawer Panel */}
+          <div
+            id="mobile-nav-menu"
+            className="fixed right-0 top-0 bottom-0 w-[75vw] md:w-1/2 max-w-[320px] h-full flex flex-col justify-between p-6 shadow-2xl z-[9999] overflow-y-auto animate-slide-in lg:hidden"
+            style={{ backgroundColor: "#203322" }}
+          >
+            {/* Top Panel */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-2 focus:outline-none"
+                aria-label="Nature Wise Tree Service Home"
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}images/logo.webp`}
+                  alt="Nature Wise Tree Service Logo"
+                  className="w-10 h-10 object-contain rounded-full border border-white/20"
+                />
+                <div className="flex flex-col text-left">
+                  <span className="text-lg font-extrabold text-white leading-none">NATURE WISE</span>
+                  <span className="text-[10px] font-bold text-secondary uppercase leading-none mt-0.5">TREE SERVICE</span>
+                </div>
+              </Link>
+            </div>
 
-          {/* Bottom Call to Actions */}
-          <div className="border-t border-white/10 pt-6 flex flex-col gap-4">
-            <a
-              href={`tel:${siteData.phoneFormatted}`}
-              className="flex items-center justify-center gap-3 bg-white/10 text-white font-bold py-3.5 px-6 rounded-full hover:bg-white/20 transition-all touch-target focus:outline-none focus:ring-2 focus:ring-white"
-            >
-              <Phone className="w-5 h-5 text-secondary animate-pulse" />
-              <span>{siteData.phone}</span>
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => handleLinkClick(e, "contact")}
-              className="flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-heading font-black py-4 px-6 rounded-full shadow-lg hover-lift transition-all touch-target focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-            >
-              <Calendar className="w-5 h-5" />
-              <span>Get Free Estimate</span>
-            </a>
+            {/* Nav Items */}
+            <nav className="flex flex-col gap-4 text-center py-6">
+              {navLinks.map((link, idx) => {
+                const LinkIcon = link.icon;
+                const isActive = link.path === activeSection;
+                return (
+                  <a
+                    key={link.path}
+                    href={`#${link.path}`}
+                    onClick={(e) => handleLinkClick(e, link.path)}
+                    style={{ animationDelay: `${idx * 50}ms` }}
+                    className={`text-2xl font-bold py-2 flex items-center justify-center gap-3 transition-all duration-300 animate-fade-up touch-target focus:outline-none ${
+                      isActive ? "text-secondary scale-105 font-black" : "text-white/80 hover:text-white"
+                    }`}
+                  >
+                    <LinkIcon className="w-6 h-6" />
+                    <span>{link.label}</span>
+                  </a>
+                );
+              })}
+            </nav>
+
+            {/* Bottom Actions */}
+            <div className="border-t border-white/10 pt-6 flex flex-col gap-4">
+              <a
+                href={`tel:${siteData.phoneFormatted}`}
+                className="flex items-center justify-center gap-3 bg-white/10 text-white font-bold py-3.5 px-6 rounded-full hover:bg-white/20 transition-all touch-target focus:outline-none"
+              >
+                <Phone className="w-5 h-5 text-secondary animate-pulse" />
+                <span className="text-sm">{siteData.phone}</span>
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => handleLinkClick(e, "contact")}
+                className="flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-heading font-black py-4 px-6 rounded-full shadow-lg hover-lift transition-all touch-target focus:outline-none"
+              >
+                <Calendar className="w-5 h-5" />
+                <span className="text-sm">Get Free Estimate</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
