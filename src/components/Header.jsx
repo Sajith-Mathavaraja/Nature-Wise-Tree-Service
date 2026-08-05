@@ -96,30 +96,36 @@ export default function Header() {
     }
 
     const sections = ["home", "about", "services", "why-choose-us", "reviews", "contact"];
+    let observer;
+    let timerId;
     
     const observerCallback = (entries) => {
-      // Find the entry that has the highest intersection ratio
       const visibleEntry = entries.find(entry => entry.isIntersecting);
       if (visibleEntry) {
         setActiveSection(visibleEntry.target.id);
       }
     };
 
-    // Configure the observer to trigger as sections cross the middle viewport zone
-    const observer = new IntersectionObserver(observerCallback, {
-      root: null,
-      rootMargin: "-25% 0px -45% 0px",
-      threshold: [0, 0.1, 0.2]
+    // Defer element lookup to post-paint frame to avoid forced reflow on initial mount
+    timerId = requestAnimationFrame(() => {
+      observer = new IntersectionObserver(observerCallback, {
+        root: null,
+        rootMargin: "-25% 0px -45% 0px",
+        threshold: [0, 0.1, 0.2]
+      });
+
+      sections.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          observer.observe(el);
+        }
+      });
     });
 
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        observer.observe(el);
-      }
-    });
-
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(timerId);
+      if (observer) observer.disconnect();
+    };
   }, [location.pathname]);
 
   const currentIdx = navLinks.findIndex(link => link.path === activeSection);
